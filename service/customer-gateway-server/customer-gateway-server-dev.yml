@@ -1,0 +1,50 @@
+# =============================================================================
+# CUSTOMER GATEWAY SERVER - DEVELOPMENT ENVIRONMENT CONFIGURATION
+# =============================================================================
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+server:
+  port: 8081  # Same as default
+
+# Eureka configuration for development
+eureka:
+  instance:
+    metadata-map:
+      version: ${info.app.version:1.0.0}
+      environment: development
+      zone: ${AVAILABILITY_ZONE:zone-a}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,metrics,gateway"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+info:
+  app:
+    name: "customer-gateway-server"
+    description: "TL Express Customer API Gateway - Development"
+    version: "1.0.0"
+    environment: "development"

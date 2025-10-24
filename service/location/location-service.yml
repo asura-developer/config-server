@@ -1,0 +1,47 @@
+server:
+  port: 7084
+
+spring:
+  application:
+    name: location-service
+# Eureka configuration
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+  client:
+    fetch-registry: true
+    registerWithEureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+
+endpoint:
+  shutdown:
+    enabled: true
+info:
+  app:
+    name: "location-service"
+    description: "TL Express Locations Application"
+    version: "1.0.0"

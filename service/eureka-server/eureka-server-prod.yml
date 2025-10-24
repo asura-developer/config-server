@@ -1,0 +1,19 @@
+server:
+  port: 8761
+
+# =============================================================================
+# EUREKA SERVER CONFIGURATION - PRODUCTION ENVIRONMENT
+# =============================================================================
+
+eureka:
+  instance:
+    hostname: eureka-server
+    prefer-ip-address: false
+  client:
+    fetchRegistry: false
+    registerWithEureka: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: true
+    eviction-interval-timer-in-ms: 30000

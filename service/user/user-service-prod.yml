@@ -1,0 +1,44 @@
+server:
+  port: 7082
+
+# =============================================================================
+# USER SERVICE CONFIGURATION - PRODUCTION ENVIRONMENT
+# =============================================================================
+
+spring:
+  application:
+    name: user-service
+
+# Eureka configuration
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+  client:
+    fetch-registry: true
+    registerWithEureka: true
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,metrics"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+info:
+  app:
+    name: "user-service"
+    description: "TL Express User Service - PROD"
+    version: "1.0.0"

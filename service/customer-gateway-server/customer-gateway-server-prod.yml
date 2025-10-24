@@ -1,0 +1,57 @@
+# =============================================================================
+# CUSTOMER GATEWAY SERVER - PRODUCTION ENVIRONMENT CONFIGURATION
+# =============================================================================
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      # Production-specific gateway routes can be added here
+
+server:
+  port: 8081  # Production port
+
+# Eureka configuration for production
+eureka:
+  instance:
+    metadata-map:
+      version: ${info.app.version:1.0.0}
+      environment: production
+      zone: ${AVAILABILITY_ZONE:zone-a}
+      cluster: ${CLUSTER_NAME:default}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,metrics,prometheus"
+        exclude: "env,configprops,beans,mappings,shutdown,threaddump,heapdump"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+    show-details: never
+    show-components: never
+  endpoint:
+    shutdown:
+      enabled: false
+    health:
+      probes:
+        enabled: true
+
+info:
+  app:
+    name: "gateway-server"
+    description: "TL Express Customer API Gateway - Production"
+    version: "1.0.0"
+    environment: "production"
