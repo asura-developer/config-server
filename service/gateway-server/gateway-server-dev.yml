@@ -25,7 +25,7 @@ eureka:
       zone: ${AVAILABILITY_ZONE:zone-a}
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://192.168.0.20:8761/eureka/
 
 management:
   endpoints:
