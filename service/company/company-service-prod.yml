@@ -11,16 +11,19 @@ spring:
 
 # Eureka configuration
 eureka:
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    lease-renewal-interval-in-seconds: 30
-    lease-expiration-duration-in-seconds: 90
   client:
-    fetch-registry: true
-    registerWithEureka: true
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://192.168.0.20:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+    registry-fetch-interval-seconds: 5
+    eureka-server-connect-timeout-seconds: 10
+  instance:
+    prefer-ip-address: true  # Use IP address for service discovery
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    metadata-map:
+      zone: ${ZONE:default}
 
 management:
   endpoints:
