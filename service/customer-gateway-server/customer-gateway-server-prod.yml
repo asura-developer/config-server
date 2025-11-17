@@ -19,15 +19,19 @@ server:
 
 # Eureka configuration for production
 eureka:
-  instance:
-    metadata-map:
-      version: ${info.app.version:1.0.0}
-      environment: production
-      zone: ${AVAILABILITY_ZONE:zone-a}
-      cluster: ${CLUSTER_NAME:default}
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://192.168.0.20:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+    registry-fetch-interval-seconds: 5
+    eureka-server-connect-timeout-seconds: 10
+  instance:
+    prefer-ip-address: true  # Use IP address for service discovery
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    metadata-map:
+      zone: ${ZONE:default}
 
 management:
   endpoints:
