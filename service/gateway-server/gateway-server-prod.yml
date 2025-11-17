@@ -27,7 +27,7 @@ eureka:
     registry-fetch-interval-seconds: 5
     eureka-server-connect-timeout-seconds: 10
   instance:
-    prefer-ip-address: true  # Use IP address for service discovery
+    prefer-ip-address: false  # CHANGED: Use hostname instead of IP
     lease-renewal-interval-in-seconds: 10
     lease-expiration-duration-in-seconds: 30
     metadata-map:
