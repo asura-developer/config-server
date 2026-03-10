@@ -26,7 +26,9 @@ eureka:
     registry-fetch-interval-seconds: 5
     eureka-server-connect-timeout-seconds: 10
   instance:
-    prefer-ip-address: false  # CHANGED: Use hostname instead of IP
+    prefer-ip-address: false
+    instance-id: ${spring.application.name}:${server.port}  # ← ADD THIS
+    hostname: ${spring.application.name}                     # ← ADD THIS
     lease-renewal-interval-in-seconds: 10
     lease-expiration-duration-in-seconds: 30
     metadata-map:
